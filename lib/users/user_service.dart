@@ -1,6 +1,7 @@
 import 'dart:developer';
 
 import 'package:app_architecture/app/config.dart';
+import 'package:app_architecture/users/models/post_model.dart';
 import 'package:app_architecture/users/models/user_model.dart';
 import 'package:dio/dio.dart';
 
@@ -16,7 +17,12 @@ class UserService {
     return data;
   }
 
-  findPostsByUser() {}
+  Future<List<PostModel>> findPostsByUser(int userId) async {
+    Response resp = await _dio.get("/users/$userId/posts");
+    return List<PostModel>.from(
+        resp.data.map((json) => PostModel.fromJson(json)));
+  }
+
   findTodosByUser() {}
   addTodo() {}
   updateTodo() {}

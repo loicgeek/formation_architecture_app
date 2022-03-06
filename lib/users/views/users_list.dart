@@ -3,6 +3,7 @@ import 'dart:developer';
 import 'package:app_architecture/app/config.dart';
 import 'package:app_architecture/users/models/user_model.dart';
 import 'package:app_architecture/users/user_service.dart';
+import 'package:app_architecture/users/views/user_posts.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 
@@ -77,21 +78,66 @@ class _UsersListState extends State<UsersList> {
                 itemBuilder: (context, index) {
                   var user = snapshot.data![index];
                   return Card(
-                    child: ListTile(
-                      title: Row(
-                        children: [
-                          Expanded(child: Text(user.name)),
-                          Text('${user.address.city}')
-                        ],
-                      ),
-                      subtitle: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(user.phone),
-                          Text("Company: ${user.company.name}"),
-                        ],
-                      ),
-                      isThreeLine: true,
+                    child: Column(
+                      children: [
+                        ListTile(
+                          title: Row(
+                            children: [
+                              Expanded(child: Text(user.name)),
+                              Text('${user.address.city}')
+                            ],
+                          ),
+                          subtitle: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(user.phone),
+                              Text("Company: ${user.company.name}"),
+                            ],
+                          ),
+                          isThreeLine: true,
+                        ),
+                        const Divider(
+                          height: 2,
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceAround,
+                          children: [
+                            Expanded(
+                              child: InkWell(
+                                onTap: () {
+                                  Navigator.of(context)
+                                      .push(UserPosts.route(user));
+                                },
+                                child: Container(
+                                  color: Colors.grey.withOpacity(.3),
+                                  padding: const EdgeInsets.all(8),
+                                  child: const Text(
+                                    "Posts",
+                                    textAlign: TextAlign.center,
+                                  ),
+                                ),
+                              ),
+                            ),
+                            Container(
+                              height: 10,
+                              width: 3,
+                              color: Colors.white,
+                            ),
+                            Expanded(
+                              child: InkWell(
+                                child: Container(
+                                  color: Colors.grey.withOpacity(.3),
+                                  padding: const EdgeInsets.all(8),
+                                  child: const Text(
+                                    "Todos",
+                                    textAlign: TextAlign.center,
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ],
                     ),
                   );
                 },
