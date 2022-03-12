@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:app_architecture/users/views/users_list.dart';
+import 'package:app_architecture/weather/views/city_weather_screen.dart';
 import 'package:flutter/material.dart';
 
 class AppInitialization extends StatefulWidget {
@@ -20,7 +21,7 @@ class _AppInitializationState extends State<AppInitialization> {
   checkState() {
     Timer(const Duration(seconds: 2), () {
       Navigator.of(context)
-          .pushAndRemoveUntil(UsersList.route(), (route) => false);
+          .pushAndRemoveUntil(CityWeatherScreen.route(), (route) => false);
     });
   }
 
